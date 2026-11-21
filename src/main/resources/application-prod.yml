@@ -1,0 +1,38 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  main:
+    lazy-initialization: true
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: se331
+
+supabase:
+  storage:
+    endpoint: ${SUPABASE_ENDPOINT}
+    bucket: ${SUPABASE_BUCKET}
+    region: ${SUPABASE_REGION}
+    accessKey: ${SUPABASE_ACCESS_KEY}
+    secretKey: ${SUPABASE_SECRET_KEY}
+
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
+
+app:
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}

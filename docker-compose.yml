@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: passportdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    ports:
+      - "9000:8080"
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file: .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/passportdb
+      APP_CORS_ALLOWEDORIGINS: http://localhost:5173,http://localhost:3000
+    depends_on:
+      - db
+volumes:
+  pgdata:
